@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For the Future Doctor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400%;
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            animation: rainbow 20s linear infinite;
+            transition: opacity 0.5s;
+        }
+
+        .container:hover::before {
+            opacity: 0.3;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            animation: fadeIn 3s ease-in-out;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .heart {
+            font-size: 2rem;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .click-me {
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            animation: fadeInButton 1s ease-in-out 10s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInButton {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .click-me:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .click-me::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            pointer-events: none;
+        }
+
+        .click-me:hover::after {
+            left: 100%;
+        }
+
+        .rose-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+            z-index: 100;
+        }
+
+        .rose-container.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .rose {
+            font-size: 10rem;
+            color: red;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            animation: pulse 2s infinite, float 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .sorry-text {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            animation: fadeInText 1s ease-in-out 1s forwards;
+            margin-top: 20px;
+        }
+
+        .love-text {
+            color: pink;
+            font-size: 3rem;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+            opacity: 0;
+            animation: fadeInText 1s ease-in-out 2s forwards;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .signature {
+            color: white;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            animation: fadeInText 1s ease-in-out 3s forwards;
+            margin-top: 40px;
+            font-style: italic;
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .petals {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.7);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            animation: falling linear infinite;
+        }
+
+        @keyframes falling {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        .share-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .share-link:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello Future Doctor</h1>
+        <p>I know you have forgiven many mistakes.</p>
+        <p>As your regular patient, please find a cure for it also and come back.</p>
+        <p>It's so lonely without you.</p>
+        <div class="heart">❤️</div>
+        <button class="click-me" id="clickMe">Click Here</button>
+    </div>
+
+    <div class="rose-container" id="roseContainer">
+        <div class="petals" id="petals"></div>
+        <div class="stars" id="stars"></div>
+        <div class="rose">🌹</div>
+        <div class="sorry-text">SORRY</div>
+        <div class="love-text">I LOVE YOU</div>
+        <div class="signature">MANU</div>
+    </div>
+
+    <a href="#" class="share-link" id="shareLink">Share this page</a>
+
+    <script>
+        // Create petals
+        const petalsContainer = document.getElementById('petals');
+        for (let i = 0; i < 30; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            // Random size
+            const size = Math.random() * 15 + 5;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            
+            // Random position
+            petal.style.left = `${Math.random() * 100}%`;
+            
+            // Random animation duration and delay
+            const duration = Math.random() * 5 + 3;
+            petal.style.animationDuration = `${duration}s`;
+            petal.style.animationDelay = `${Math.random() * 5}s`;
+            
+            petalsContainer.appendChild(petal);
+        }
+
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random size
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            
+            // Random position
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration and delay
+            const duration = Math.random() * 2 + 1;
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            
+            starsContainer.appendChild(star);
+        }
+
+        // Show rose on click
+        document.getElementById('clickMe').addEventListener('click', function() {
+            document.getElementById('roseContainer').classList.add('show');
+            
+            // Add more petals when clicked
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.classList.add('petal');
+                    
+                    const size = Math.random() * 15 + 5;
+                    petal.style.width = `${size}px`;
+                    petal.style.height = `${size}px`;
+                    
+                    petal.style.left = `${Math.random() * 100}%`;
+                    
+                    const duration = Math.random() * 5 + 3;
+                    petal.style.animationDuration = `${duration}s`;
+                    
+                    petalsContainer.appendChild(petal);
+                    
+                    // Remove petal after animation completes
+                    setTimeout(() => {
+                        petal.remove();
+                    }, duration * 1000);
+                }, Math.random() * 2000);
+            }
+        });
+
+        // Share link functionality
+        document.getElementById('shareLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            const currentURL = window.location.href;
+            
+            // Check if the Web Share API is available
+            if (navigator.share) {
+                navigator.share({
+                    title: 'For the Future Doctor',
+                    text: 'A special message for you',
+                    url: currentURL
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    copyToClipboard(currentURL);
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                copyToClipboard(currentURL);
+            }
+        });
+
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            
+            alert('Link copied to clipboard! You can now share it.');
+        }
+    </script>
+</body>
+</html>
