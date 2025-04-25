@@ -13,16 +13,20 @@
             justify-content: center;
             align-items: center;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: url('https://i.imgur.com/JqYeERn.jpg') center/cover no-repeat;
             overflow: hidden;
+            position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
 
         .container {
@@ -35,6 +39,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
 
         .container::before {
@@ -188,16 +193,6 @@
             font-weight: bold;
         }
 
-        .signature {
-            color: white;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-            opacity: 0;
-            animation: fadeInText 1s ease-in-out 3s forwards;
-            margin-top: 40px;
-            font-style: italic;
-        }
-
         @keyframes fadeInText {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -280,8 +275,8 @@
 <body>
     <div class="container">
         <h1>Hello Future Doctor</h1>
-        <p>I know you have forgiven many mistakes.</p>
-        <p>As your regular patient, please find a cure for it also and come back.</p>
+        <p>I know you have forgiven my many mistakes.</p>
+        <p>As your regular patient, please find a cure for this one also and come back.</p>
         <p>It's so lonely without you.</p>
         <div class="heart">❤️</div>
         <button class="click-me" id="clickMe">Click Here</button>
@@ -293,7 +288,6 @@
         <div class="rose">🌹</div>
         <div class="sorry-text">SORRY</div>
         <div class="love-text">I LOVE YOU</div>
-        <div class="signature">MANU</div>
     </div>
 
     <a href="#" class="share-link" id="shareLink">Share this page</a>
